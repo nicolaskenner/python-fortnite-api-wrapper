@@ -1,2 +1,2 @@
-# python-fortnite-api-wrapper
-The Python Fortnite API Wrapper
+# The Python Fortnite API Wrapper
+A work in progress.
