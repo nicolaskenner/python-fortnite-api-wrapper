@@ -1,7 +1,8 @@
 """Keep super secret"""
-credentials = {
-    'launcher_token': '',
-    'fortnite_token': '',
-    'username': '',
-    'password': ''
-}
+
+
+class Credentials:
+    fortnite_token = ''
+    launcher_token = ''
+    password = ''
+    username = ''
