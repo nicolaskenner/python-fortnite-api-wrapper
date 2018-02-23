@@ -26,13 +26,13 @@ def main():
 
     # Get player ID from Epic Games username.
     nicks_username = 'Nick K'
-    nicks_player_id = fortnite.get_player(nicks_username)
+    nick = fortnite.get_player_from_username(nicks_username)
 
     # These methods will return objects containing various stats from the API.
-    all = fortnite.get_all_time_stats(nicks_player_id)
-    solo = fortnite.get_solo_stats(nicks_player_id)
-    duo = fortnite.get_duo_stats(nicks_player_id)
-    squad = fortnite.get_squad_stats(nicks_player_id)
+    all_time = fortnite.get_all_time_stats(nick.id)
+    solo = fortnite.get_solo_stats(nick.id)
+    duo = fortnite.get_duo_stats(nick.id)
+    squad = fortnite.get_squad_stats(nick.id)
 
     # Do something with our stat objects.
     fancy_stats_string = """
@@ -49,9 +49,9 @@ def main():
     \t- Squad | {matches_squad}
     """
 
-    formatted_string = fancy_stats_string.format(score_all=all.score, score_solo=solo.score,
+    formatted_string = fancy_stats_string.format(score_all=all_time.score, score_solo=solo.score,
                                                  score_duo=duo.score, score_squad=squad.score,
-                                                 matches_all=all.matches, matches_solo=solo.matches,
+                                                 matches_all=all_time.matches, matches_solo=solo.matches,
                                                  matches_duo=duo.matches, matches_squad=squad.matches)
 
     print(formatted_string)

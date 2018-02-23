@@ -1,6 +1,6 @@
 class Player(object):
     def __init__(self, player_dict):
-        self.name = player_dict['playerName']
+        self.name = player_dict['displayName']
         self.id = player_dict['id']
 
 

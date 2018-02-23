@@ -41,7 +41,6 @@ class Fortnite(object):
                                    headers={'Authorization': 'bearer {}'.format(self.access_token_fortnite)})
         except requests.exceptions.RequestException as e:
             sys.exit(e)
-
         return models.Player(player_dict=request.json())
 
     def get_all_time_stats(self, player_id):
