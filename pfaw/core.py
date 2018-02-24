@@ -34,6 +34,7 @@ class Fortnite(object):
         """Return object containing player name and id"""
         response = requests.get(constants.player_lookup.format(username),
                                 headers={'Authorization': 'bearer {}'.format(self.access_token_fortnite)})
+
         return models.Player(response=response.json())
 
     def battle_royale_stats(self, username, mode, platform):
