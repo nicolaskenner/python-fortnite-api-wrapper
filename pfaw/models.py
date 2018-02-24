@@ -1,12 +1,11 @@
 class Player(object):
-    def __init__(self, player_dict):
-        self.name = player_dict['displayName']
-        self.id = player_dict['id']
+    def __init__(self, response):
+        self.name = response['displayName']
+        self.id = response['id']
 
 
 class BattleRoyale(object):
-    def __init__(self, br_dict, mode):
-        self.data = br_dict
+    def __init__(self, response, mode, platform):
         self.score = 0
         self.matches = 0
         self.time = 0
@@ -19,7 +18,6 @@ class BattleRoyale(object):
         self.top12 = 0
         self.top25 = 0
 
-        mode = mode.lower()
         if mode == 'solo':
             mode = '_p2'
         elif mode == 'duo':
@@ -29,8 +27,8 @@ class BattleRoyale(object):
         elif mode == 'all':
             mode = '_p'
 
-        for i in self.data:
-            if mode in i['name']:
+        for i in response:
+            if mode and platform in i['name']:
                 if 'score' in i['name']:
                     self.score += i['value']
                 elif 'matchesplayed' in i['name']:
