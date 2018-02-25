@@ -32,7 +32,7 @@ class Fortnite(object):
 
     def player(self, username):
         """Return object containing player name and id"""
-        response = requests.get(constants.player_lookup.format(username),
+        response = requests.get(constants.player.format(username),
                                 headers={'Authorization': 'bearer {}'.format(self.access_token_fortnite)})
 
         return models.Player(response=response.json())
@@ -48,7 +48,15 @@ class Fortnite(object):
         """
 
         player_id = self.player(username=username).id
-        response = requests.get(constants.battle_royale_stats.format(player_id),
+        response = requests.get(constants.battle_royale.format(player_id),
                                 headers={'Authorization': 'bearer {}'.format(self.access_token_fortnite)})
 
         return models.BattleRoyale(response=response.json(), mode=mode.lower(), platform=platform.lower())
+
+    def server_status(self):
+        """Check the status of the Fortnite servers. Returns True if up and False if down."""
+        response = requests.get(constants.status)
+        if response.json()[0]['status'] == 'UP':
+            return True
+        else:
+            return False
