@@ -1,5 +1,5 @@
 from . import constants
-from . import models
+from . import objects
 import requests
 
 
@@ -35,7 +35,7 @@ class Fortnite(object):
         response = requests.get(constants.player.format(username),
                                 headers={'Authorization': 'bearer {}'.format(self.access_token_fortnite)})
 
-        return models.Player(response=response.json())
+        return objects.Player(response=response.json())
 
     def battle_royale_stats(self, username, mode, platform):
         """Return object containing Battle Royale stats
@@ -51,7 +51,7 @@ class Fortnite(object):
         response = requests.get(constants.battle_royale.format(player_id),
                                 headers={'Authorization': 'bearer {}'.format(self.access_token_fortnite)})
 
-        return models.BattleRoyale(response=response.json(), mode=mode.lower(), platform=platform.lower())
+        return objects.BattleRoyale(response=response.json(), mode=mode.lower(), platform=platform.lower())
 
     def server_status(self):
         """Check the status of the Fortnite servers. Returns True if up and False if down."""
