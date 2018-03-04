@@ -3,3 +3,4 @@ exchange = 'https://account-public-service-prod03.ol.epicgames.com/account/api/o
 player = 'https://persona-public-service-prod06.ol.epicgames.com/persona/api/public/account/lookup?q={}'
 battle_royale = 'https://fortnite-public-service-prod11.ol.epicgames.com/fortnite/api/stats/accountId/{}/bulk/window/alltime'
 status = 'https://lightswitch-public-service-prod06.ol.epicgames.com/lightswitch/api/service/bulk/status?serviceId=Fortnite'
+friends = 'https://friends-public-service-prod06.ol.epicgames.com/friends/api/public/friends/{}'

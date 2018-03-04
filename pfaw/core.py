@@ -60,3 +60,16 @@ class Fortnite(object):
             return True
         else:
             return False
+
+    def friends(self, username):
+        """Return list of Player objects. This method only works for the authenticated account."""
+        player_id = self.player(username=username).id
+        response = requests.get(constants.friends.format(player_id),
+                                headers={'Authorization': 'bearer {}'.format(self.access_token_fortnite),
+                                         'includePending': 'false'})
+        friends = []
+        for friend in response.json():
+            friends.append({f"displayName": f"{friend.get('displayName')}", f"id": f"{friend.get('accountId')}"})
+        list_of_friend_objects = [objects.Player(player) for player in friends]
+
+        return list_of_friend_objects

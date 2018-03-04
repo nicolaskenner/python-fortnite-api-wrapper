@@ -3,6 +3,9 @@ class Player(object):
         self.name = response['displayName']
         self.id = response['id']
 
+    def __str__(self):
+        return f'Name: {self.name}\nID: {self.id}'
+
 
 class BattleRoyale(object):
     def __init__(self, response, mode, platform):
@@ -51,3 +54,6 @@ class BattleRoyale(object):
                     self.top12 += i['value']
                 elif 'placetop25' in i['name']:
                     self.top25 += i['value']
+
+    def __str__(self):
+        return f'Score: {self.score}\nMatches played: {self.matches}\nMinutes played: {self.time}\nKills: {self.kills}\nWins: {self.wins}\nTop 3: {self.top3}\nTop 5: {self.top5}\nTop 6: {self.top6}\nTop 10: {self.top10}\nTop 12: {self.top12}\nTop 25: {self.top25}'
