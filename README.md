@@ -73,7 +73,7 @@ Returns a list of player objects. As far as I know, this method only works for t
 ```python
 smittys_pals = fortnite.friends(username='Smitty Werbenjagermanjensen')
 
-for friend in friends:
+for friend in smittys_pals:
     print(friend.name)
 
 # prints:
