@@ -1,4 +1,4 @@
-from pfaw.core import Fortnite
+import pfaw
 
 
 def main():
@@ -14,8 +14,8 @@ def main():
     email = 'epic_games_email'
 
     # Instantiate Fortnite class
-    fortnite_instance = Fortnite(fortnite_token=fortnite_token, launcher_token=launcher_token,
-                                 password=password, email=email)
+    fortnite_instance = pfaw.Fortnite(fortnite_token=fortnite_token, launcher_token=launcher_token,
+                                      password=password, email=email)
 
     # Get player object
     smitty = fortnite_instance.player('smitty werbenjagermanjensen')

@@ -4,9 +4,9 @@ A work in progress.
 ## Example
 
 ```python
-from pfaw.core import Fortnite
+import pfaw
 
-fortnite = Fortnite(fortnite_token='FORTNITE_TOKEN', launcher_token='LAUNCHER_TOKEN',
+fortnite = pfaw.Fortnite(fortnite_token='FORTNITE_TOKEN', launcher_token='LAUNCHER_TOKEN',
                     password='PASSWORD', email='EMAIL')
 player = fortnite.player('Smitty Werbenjagermanjensen')
 print(f'His name is {player.name} and his id is {player.id}')
