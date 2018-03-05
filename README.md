@@ -1,6 +1,11 @@
 # The Python Fortnite API Wrapper
 A work in progress.
 
+## Installation
+```bash
+pip install fortnite
+```
+
 ## Usage
 
 ### Setup
