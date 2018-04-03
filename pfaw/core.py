@@ -73,3 +73,9 @@ class Fortnite(object):
         list_of_friend_objects = [objects.Player(player) for player in friends]
 
         return list_of_friend_objects
+    
+    def shop(self, rw):
+        """Return current store items. This method only works for the authenticated account."""
+        response = requests.get(constants.friends.format(rw),
+                                headers={'Authorization': 'bearer {}'.format(self.access_token_fortnite)})
+        return objects.Shop(response=response.json())
