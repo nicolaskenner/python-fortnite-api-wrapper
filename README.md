@@ -89,4 +89,4 @@ for friend in smittys_pals:
 ### Hopefully more methods to come
 Feel free to open an issue or submit a pull request if you have any neat ideas.
 
-Join the [Discord](https://discord.gg/eFBk3wZ) for help and suggestions.
+Join the [Discord](https://discord.gg/AEfWXP9) for help and suggestions.
