@@ -8,7 +8,8 @@ class Player(object):
 
 
 class BattleRoyale(object):
-    def __init__(self, response, mode, platform):
+    def __init__(self, status, response, mode, platform):
+        self.status = status
         self.score = 0
         self.matches = 0
         self.time = 0
@@ -58,7 +59,8 @@ class BattleRoyale(object):
         return f'Score: {self.score}\nMatches played: {self.matches}\nMinutes played: {self.time}\nKills: {self.kills}\nWins: {self.wins}\nTop 3: {self.top3}\nTop 5: {self.top5}\nTop 6: {self.top6}\nTop 10: {self.top10}\nTop 12: {self.top12}\nTop 25: {self.top25}'
 
 class Shop(object):
-    def __init__(self, response):
+    def __init__(self, status, response):
+        self.status = status
         storefronts = False
         self.storefronts = {}
         for name in response:
