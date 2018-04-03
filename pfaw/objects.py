@@ -111,7 +111,7 @@ class CatalogEntry(object):
                 self.offerId = value
             elif name == 'offerType':
                 self.offerType = value
-            elif name == 'refundable:
+            elif name == 'refundable':
                 self.refundable = value
             elif name == 'prices':
                 prices = True
