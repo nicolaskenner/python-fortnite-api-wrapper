@@ -9,7 +9,7 @@ import os
 import sys
 from shutil import rmtree
 
-from setuptools import find_packages, setup, 
+from setuptools import find_packages, setup
 
 # Package meta-data.
 NAME = 'fortnite'
