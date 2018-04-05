@@ -14,7 +14,7 @@ setup(
     long_description=long_description,
     long_description_content_type='text/markdown',
     url='https://github.com/nicolaskenner/python-fortnite-api-wrapper',
-    author='Nicolas Kenner & Douile',
+    author='Nicolas Kenner',
     author_email='nick@nicolaskenner.com',
     classifiers=[
         'Development Status :: 3 - Alpha',
