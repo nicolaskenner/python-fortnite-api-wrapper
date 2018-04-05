@@ -90,3 +90,8 @@ for friend in smittys_pals:
 Feel free to open an issue or submit a pull request if you have any neat ideas.
 
 Join the [Discord](https://discord.gg/AEfWXP9) for help and suggestions.
+
+## Contributors
+A thank you to those who have helped out with this project.
+
+- Tom ([@Douile](https://github.com/Douile))
