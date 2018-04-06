@@ -21,8 +21,8 @@ Creates a player object containing the attributes name and id.
 ```python
 smitty = fortnite.player('Smitty Werbenjagermanjensen')
 
-print(player.name)
-print(player.id)
+print(smitty.name)
+print(smitty.id)
 
 # prints:
 # Smitty Werbenjagermanjensen
@@ -79,11 +79,7 @@ Returns a list of player objects. As far as I know, this method only works for t
 smittys_pals = fortnite.friends(username='Smitty Werbenjagermanjensen')
 
 for friend in smittys_pals:
-    print(friend.name)
-
-# prints:
-# Shizzy McCreepy
-# SD McCrawley
+    print(friend)
 ```
 
 ### Hopefully more methods to come
