@@ -51,7 +51,7 @@ class Fortnite(object):
         response = requests.get(constants.battle_royale.format(player_id),
                                 headers={'Authorization': 'bearer {}'.format(self.access_token_fortnite)})
 
-        return objects.BattleRoyale(response=response.json(), mode=mode.lower(), platform=platform.lower())
+        return objects.BattleRoyale(status=response.status_code,response=response.json(), mode=mode.lower(), platform=platform.lower())
 
     def server_status(self):
         """Check the status of the Fortnite servers. Returns True if up and False if down."""
@@ -78,4 +78,4 @@ class Fortnite(object):
         """Return current store items. This method only works for the authenticated account."""
         response = requests.get(constants.friends.format(rw),
                                 headers={'Authorization': 'bearer {}'.format(self.access_token_fortnite)})
-        return objects.Shop(response=response.json())
+        return objects.Shop(status=response.status_code,response=response.json())
