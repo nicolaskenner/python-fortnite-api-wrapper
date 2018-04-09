@@ -83,7 +83,7 @@ class Fortnite(object):
     def news(self):
         """Get the current news on fortnite."""
         headers = {'Accept-Language':'en'}
-        response = resquests.get(constants.news,headers=headers)
+        response = requests.get(constants.news,headers=headers)
         return objects.News(status=response.status_code,response=response.json())
     def profile(self,playerId):
         headers = {'Authorization': 'bearer {}'.format(self.access_token_fortnite)}

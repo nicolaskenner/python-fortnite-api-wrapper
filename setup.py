@@ -18,7 +18,7 @@ URL = 'https://github.com/nicolaskenner/python-fortnite-api-wrapper'
 EMAIL = 'nick@nicolaskenner.com'
 AUTHOR = 'Nicolas Kenner & Douile'
 REQUIRES_PYTHON = '>=3'
-VERSION = '0.0.2'
+VERSION = '0.0.4'
 
 # What packages are required for this module to be executed?
 REQUIRED = [

@@ -138,8 +138,8 @@ class Price(object):
                 self.expiration = value
 
 class News(object):
-    def __init__(self,staus,response):
-        self.status == status
+    def __init__(self,status,response):
+        self.status = status
         if 'data' in response:
             if 'athenamessage' in response['data']:
                 if 'overrideablemessage' in response['data']['athenamessage']:
