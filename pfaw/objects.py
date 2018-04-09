@@ -137,6 +137,29 @@ class Price(object):
             elif name == 'saleExpiration':
                 self.expiration = value
 
+class News(object):
+    def __init__(self,staus,response):
+        self.status == status
+        if 'data' in response:
+            if 'athenamessage' in response['data']:
+                if 'overrideablemessage' in response['data']['athenamessage']:
+                    if 'messages' in response['data']['athenamessage']['overrideablemessage']:
+                        self.common = response['data']['athenamessage']['overrideablemessage']['messages']
+                    elif 'message' in response['data']['athenamessage']['overrideablemessage']:
+                        self.common = [response['data']['athenamessage']['overrideablemessage']['message']]
+            if 'battleroyalenews' in response['data']:
+                if 'news' in response['data']['battleroyalenews']:
+                    if 'messages' in response['data']['battleroyalenews']['news']:
+                        self.br = response['data']['battleroyalenews']['news']['messages']
+                    elif 'message' in response['data']['battleroyalenews']['news']:
+                        self.br = [response['data']['battleroyalenews']['news']['message']]
+            if 'loginmessage' in response['data']:
+                if 'loginmessage' in response['data']['loginmessage']:
+                    if 'messages' in response['data']['loginmessage']['loginmessage']:
+                        self.login = response['data']['loginmessage']['loginmessage']['messages']
+                    elif 'message' in response['data']['loginmessage']['loginmessage']:
+                        self.login = [response['data']['loginmessage']['loginmessage']['message']]
+
 class Profile(object):
     def __init__(self, status, response):
         self.status = status
