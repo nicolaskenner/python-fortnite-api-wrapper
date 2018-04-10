@@ -55,8 +55,10 @@ class BattleRoyale(object):
                     self.top12 += i['value']
                 elif 'placetop25' in i['name']:
                     self.top25 += i['value']
+
     def __str__(self):
         return f'Score: {self.score}\nMatches played: {self.matches}\nMinutes played: {self.time}\nKills: {self.kills}\nWins: {self.wins}\nTop 3: {self.top3}\nTop 5: {self.top5}\nTop 6: {self.top6}\nTop 10: {self.top10}\nTop 12: {self.top12}\nTop 25: {self.top25}'
+
 
 class Shop(object):
     def __init__(self, status, response):
@@ -78,6 +80,7 @@ class Shop(object):
                 storefront = object.Storefront(front)
                 self.storefronts[storefront.name] = storefront
 
+
 class Storefront(object):
     def __init__(self, storefront):
         entries = False
@@ -92,6 +95,7 @@ class Storefront(object):
             for entry in storefront['catalogEntries']:
                 catalogEntry = object.CatalogEntry(entry)
                 self.entries[catalogEntry.name] = catalogEntry
+
 
 class CatalogEntry(object):
     def __init__(self, entry):
@@ -122,6 +126,7 @@ class CatalogEntry(object):
                 cprice = object.Price(price)
                 self.prices[cprice.currencyType] = cprice
 
+
 class Price(object):
     def __init__(self, price):
         for name in price:
@@ -137,35 +142,43 @@ class Price(object):
             elif name == 'saleExpiration':
                 self.expiration = value
 
+
 class News(object):
-    def __init__(self,status,response):
+    def __init__(self, status, response):
         self.status = status
-        if 'data' in response:
-            if 'athenamessage' in response['data']:
-                if 'overrideablemessage' in response['data']['athenamessage']:
-                    if 'messages' in response['data']['athenamessage']['overrideablemessage']:
-                        self.common = response['data']['athenamessage']['overrideablemessage']['messages']
-                    elif 'message' in response['data']['athenamessage']['overrideablemessage']:
-                        self.common = [response['data']['athenamessage']['overrideablemessage']['message']]
-            if 'battleroyalenews' in response['data']:
-                if 'news' in response['data']['battleroyalenews']:
-                    if 'messages' in response['data']['battleroyalenews']['news']:
-                        self.br = response['data']['battleroyalenews']['news']['messages']
-                    elif 'message' in response['data']['battleroyalenews']['news']:
-                        self.br = [response['data']['battleroyalenews']['news']['message']]
-            if 'loginmessage' in response['data']:
-                if 'loginmessage' in response['data']['loginmessage']:
-                    if 'messages' in response['data']['loginmessage']['loginmessage']:
-                        self.login = response['data']['loginmessage']['loginmessage']['messages']
-                    elif 'message' in response['data']['loginmessage']['loginmessage']:
-                        self.login = [response['data']['loginmessage']['loginmessage']['message']]
+
+        common = response.get('athenamessage').get('overrideablemessage')
+        if common.get('message') is not None:
+            self.common = common.get('message')
+        elif common.get('messages') is not None:
+            self.common = common.get('messages')
+        else:
+            self.common = None
+
+        br = response.get('battleroyalenews').get('news')
+        if br.get('message') is not None:
+            self.br = br.get('message')
+        elif br.get('messages') is not None:
+            self.br = br.get('messages')
+        else:
+            self.br = None
+
+        login = response.get('loginmessage').get('loginmessage')
+        if login.get('message') is not None:
+            self.login = login.get('message')
+        elif login.get('messages') is not None:
+            self.login = login.get('messages')
+        else:
+            self.login = None
+
 
 class Profile(object):
     def __init__(self, status, response):
         self.status = status
         if 'profile_changes' in response:
-            for i in range(0,len(response['profile_changes'])):
-                if response['profile_changes'][i]['changeType'] == 'fullProfileUpdate' and 'profile' in response['profile_changes'][i]:
+            for i in range(0, len(response['profile_changes'])):
+                if response['profile_changes'][i]['changeType'] == 'fullProfileUpdate' and 'profile' in \
+                        response['profile_changes'][i]:
                     stats = False
                     for addr in response['profile_changes'][i]['profile']:
                         value = response['profile_changes'][i][addr]
@@ -223,10 +236,12 @@ class Profile(object):
                                     self.seasonWins = value['numWins']
                                 elif addr == 'past_seasons':
                                     self.pastSeasons = []
-                                    for i in range(0,len(value)):
+                                    for i in range(0, len(value)):
                                         self.pastSeasons.append(PastSeason(value[i]))
                                 elif addr == 'quest_manager':
                                     self.abandonDailyAmount = value['dailyQuestRerolls']
+
+
 class PastSeason(object):
     def __init__(self, season):
         for addr in season:
