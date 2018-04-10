@@ -73,7 +73,7 @@ class Fortnite(object):
 
     def shop(self, rw=-1):
         """Return current store items. This method only works for the authenticated account."""
-        response = requests.get(constants.friends.format(rw),
+        response = requests.get(constants.shop.format(rw),
                                 headers={'Authorization': 'bearer {}'.format(self.access_token_fortnite)})
         return objects.Shop(status=response.status_code,response=response.json())
 
