@@ -51,7 +51,8 @@ class Fortnite(object):
         response = requests.get(constants.battle_royale.format(player_id),
                                 headers={'Authorization': 'bearer {}'.format(self.access_token_fortnite)})
 
-        return objects.BattleRoyale(status=response.status_code,response=response.json(), mode=mode.lower(), platform=platform.lower())
+        return objects.BattleRoyale(status=response.status_code, response=response.json(), mode=mode.lower(),
+                                    platform=platform.lower())
 
     def server_status(self):
         """Check the status of the Fortnite servers. Returns True if up and False if down."""
@@ -62,17 +63,13 @@ class Fortnite(object):
             return False
 
     def friends(self, username):
-        """Return list of Player objects. This method only works for the authenticated account."""
+        """Return list of player ids. This method only works for the authenticated account."""
         player_id = self.player(username=username).id
         response = requests.get(constants.friends.format(player_id),
                                 headers={'Authorization': 'bearer {}'.format(self.access_token_fortnite),
                                          'includePending': 'false'})
-        friends = []
-        for friend in response.json():
-            friends.append({f"displayName": f"{friend.get('displayName')}", f"id": f"{friend.get('accountId')}"})
-        list_of_friend_objects = [objects.Player(player) for player in friends]
-
-        return list_of_friend_objects
+        friends = [friend.get('accountId') for friend in response.json()]
+        return friends
 
     def shop(self, rw=-1):
         """Return current store items. This method only works for the authenticated account."""
@@ -85,6 +82,7 @@ class Fortnite(object):
         headers = {'Accept-Language':'en'}
         response = requests.get(constants.news,headers=headers)
         return objects.News(status=response.status_code,response=response.json())
+      
     def profile(self,playerId):
         headers = {'Authorization': 'bearer {}'.format(self.access_token_fortnite)}
         response = requests.post(constants.profile.format(playerId,'-1'),headers=headers,data={})
