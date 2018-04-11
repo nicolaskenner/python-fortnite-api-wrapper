@@ -149,7 +149,7 @@ class News(object):
 
         common = response.get('athenamessage').get('overrideablemessage')
         if common.get('message') is not None:
-            self.common = common.get('message')
+            self.common = [common.get('message')]
         elif common.get('messages') is not None:
             self.common = common.get('messages')
         else:
@@ -157,7 +157,7 @@ class News(object):
 
         br = response.get('battleroyalenews').get('news')
         if br.get('message') is not None:
-            self.br = br.get('message')
+            self.br = [br.get('message')]
         elif br.get('messages') is not None:
             self.br = br.get('messages')
         else:
@@ -165,7 +165,7 @@ class News(object):
 
         login = response.get('loginmessage').get('loginmessage')
         if login.get('message') is not None:
-            self.login = login.get('message')
+            self.login = [login.get('message')]
         elif login.get('messages') is not None:
             self.login = login.get('messages')
         else:
