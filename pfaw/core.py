@@ -26,7 +26,7 @@ class Fortnite(object):
         request_for_fortnite = requests.post(constants.token,
                                              headers={'Authorization': 'basic {}'.format(fortnite_token)},
                                              data=fortnite_payload).json()
-        self.expires_at = request_for_fortnite['expires_at'] # we need to add the refresh
+        self.expires_at = request_for_fortnite['expires_at']  # we need to add the refresh
         self.access_token_fortnite = request_for_fortnite['access_token']
         self.refresh_token = request_for_fortnite['refresh_token']
 
@@ -75,15 +75,15 @@ class Fortnite(object):
         """Return current store items. This method only works for the authenticated account."""
         response = requests.get(constants.shop.format(rw),
                                 headers={'Authorization': 'bearer {}'.format(self.access_token_fortnite)})
-        return objects.Shop(status=response.status_code,response=response.json())
+        return objects.Shop(status=response.status_code, response=response.json())
 
     def news(self):
         """Get the current news on fortnite."""
-        headers = {'Accept-Language':'en'}
-        response = requests.get(constants.news,headers=headers)
-        return objects.News(status=response.status_code,response=response.json())
-      
-    def profile(self,playerId):
+        headers = {'Accept-Language': 'en'}
+        response = requests.get(constants.news, headers=headers)
+        return objects.News(status=response.status_code, response=response.json())
+
+    def profile(self, playerId):
         headers = {'Authorization': 'bearer {}'.format(self.access_token_fortnite)}
-        response = requests.post(constants.profile.format(playerId,'-1'),headers=headers,data={})
-        return objects.Profile(status=response.status_code,response=response.json())
+        response = requests.post(constants.profile.format(playerId, '-1'), headers=headers, data={})
+        return objects.Profile(status=response.status_code, response=response.json())
