@@ -91,6 +91,14 @@ for br_news in news.br:
     print(br_news)
 ```
 
+### Store
+```python
+news = fortnite.news()
+
+for br_news in news.br:
+    print(br_news)
+```
+
 ### Hopefully more methods to come
 Feel free to open an issue or submit a pull request if you have any neat ideas.
 
