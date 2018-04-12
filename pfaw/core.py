@@ -71,11 +71,11 @@ class Fortnite(object):
         friends = [friend.get('accountId') for friend in response.json()]
         return friends
 
-    def shop(self, rw=-1):
+    def store(self, rw=-1):
         """Return current store items. This method only works for the authenticated account."""
-        response = requests.get(constants.shop.format(rw),
+        response = requests.get(constants.store.format(rw),
                                 headers={'Authorization': 'bearer {}'.format(self.access_token_fortnite)})
-        return objects.Shop(status=response.status_code, response=response.json())
+        return objects.Store(status=response.status_code, response=response.json())
 
     def news(self):
         """Get the current news on fortnite."""
