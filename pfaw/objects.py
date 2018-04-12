@@ -1,13 +1,16 @@
-class Player(object):
+class Base:
     def __init__(self, response):
-        self.name = response['displayName']
-        self.id = response['id']
-
-    def __str__(self):
-        return f'Name: {self.name}\nID: {self.id}'
+        self.response = response
 
 
-class BattleRoyale(object):
+class Player(Base):
+    def __init__(self, response):
+        super().__init__(response)
+        self.name = self.response.get('displayName')
+        self.id = self.response.get('id')
+
+
+class BattleRoyale:
     def __init__(self, status, response, mode, platform):
         self.status = status
         self.score = 0
@@ -56,94 +59,55 @@ class BattleRoyale(object):
                 elif 'placetop25' in i['name']:
                     self.top25 += i['value']
 
-    def __str__(self):
-        return f'Score: {self.score}\nMatches played: {self.matches}\nMinutes played: {self.time}\nKills: {self.kills}\nWins: {self.wins}\nTop 3: {self.top3}\nTop 5: {self.top5}\nTop 6: {self.top6}\nTop 10: {self.top10}\nTop 12: {self.top12}\nTop 25: {self.top25}'
+
+class Store(Base):
+    def __init__(self, response, status):
+        super().__init__(response)
+        self.refresh_interval_hrs = self.response.get('refreshIntervalHrs')
+        self.daily_purchase_hrs = self.response.get('dailyPurchaseHrs')
+        self.expiration = self.response.get('expiration')
+        self.storefronts = self.storefront_list()
+
+    def storefront_list(self):
+        return [StoreFront(response) for response in self.response.get('storefronts')]
 
 
-class Shop(object):
-    def __init__(self, status, response):
-        self.status = status
-        storefronts = False
-        self.storefronts = {}
-        for name in response:
-            value = response[name]
-            if name == 'dailyPurchaseHrs':
-                self.dailyPurchaseHours = value
-            elif name == 'expiration':
-                self.expiration = value
-            elif name == 'refreshIntervalHrs':
-                self.refreshIntervalHours = value
-            elif name == 'storefronts':
-                storefronts = True
-        if storefronts:
-            for front in response['storefronts']:
-                storefront = object.Storefront(front)
-                self.storefronts[storefront.name] = storefront
+class StoreFront(Base):
+    def __init__(self, response):
+        super().__init__(response)
+        self.name = self.response.get('name')
+        self.catalog_entries = self.catalog_entry_list()
+
+    def catalog_entry_list(self):
+        return [CatalogEntry(response) for response in self.response.get('catalogEntries')]
 
 
-class Storefront(object):
-    def __init__(self, storefront):
-        entries = False
-        self.entries = {}
-        for name in storefront:
-            value = storefront[name]
-            if name == 'name':
-                self.name = value
-            elif name == 'catalogEntries':
-                entries = True
-        if entries:
-            for entry in storefront['catalogEntries']:
-                catalogEntry = object.CatalogEntry(entry)
-                self.entries[catalogEntry.name] = catalogEntry
+class CatalogEntry(Base):
+    def __init__(self, response):
+        super().__init__(response)
+        self.offer_id = self.response.get('offerId')
+        self.dev_name = self.response.get('devName')
+        self.offer_type = self.response.get('offerType')
+        self.prices = self.price_list()
+        self.title = self.response.get('title')
+        self.description = self.response.get('description')
+        self.refundable = self.response.get('refundable')
+
+    def price_list(self):
+        return [Price(response) for response in self.response.get('prices')]
 
 
-class CatalogEntry(object):
-    def __init__(self, entry):
-        prices = False
-        self.prices = {}
-        for name in entry:
-            value = entry[name]
-            if name == 'title':
-                self.title = value
-            elif name == 'devName':
-                self.devName = value
-            elif name == 'description':
-                self.description = value
-            elif name == 'dailyLimit':
-                self.dailyLimit = value
-            elif name == 'monthlyLimit':
-                self.monthlyLimit = value
-            elif name == 'offerId':
-                self.offerId = value
-            elif name == 'offerType':
-                self.offerType = value
-            elif name == 'refundable':
-                self.refundable = value
-            elif name == 'prices':
-                prices = True
-        if prices:
-            for price in entry['prices']:
-                cprice = object.Price(price)
-                self.prices[cprice.currencyType] = cprice
+class Price(Base):
+    def __init__(self, response):
+        super().__init__(response)
+        self.currency_type = self.response.get('currencyType')
+        self.regular_price = self.response.get('regularPrice')
+        self.final_price = self.response.get('finalPrice')
+        self.sale_expiration = self.response.get('saleExpiration')
+        self.base_price = self.response.get('basePrice')
 
 
-class Price(object):
-    def __init__(self, price):
-        for name in price:
-            value = price[name]
-            if name == 'currencyType':
-                self.currencyType = value
-            elif name == 'basePrice':
-                self.basePrice = value
-            elif name == 'regularPrice':
-                self.regularPrice = value
-            elif name == 'finalPrice':
-                self.finalPrice = value
-            elif name == 'saleExpiration':
-                self.expiration = value
-
-
-class News(object):
+class News:
     def __init__(self, status, response):
         self.status = status
 
@@ -172,7 +136,7 @@ class News(object):
             self.login = None
 
 
-class Profile(object):
+class Profile:
     def __init__(self, status, response):
         self.status = status
         if 'profile_changes' in response:
@@ -242,7 +206,7 @@ class Profile(object):
                                     self.abandonDailyAmount = value['dailyQuestRerolls']
 
 
-class PastSeason(object):
+class PastSeason:
     def __init__(self, season):
         for addr in season:
             value = season[addr]
