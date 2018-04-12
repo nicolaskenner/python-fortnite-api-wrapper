@@ -93,10 +93,29 @@ for br_news in news.br:
 
 ### Store
 ```python
-news = fortnite.news()
+store = fortnite.store()
 
-for br_news in news.br:
-    print(br_news)
+print(store.refresh_interval_hrs)
+print(store.daily_purchase_hrs)
+print(store.expiration)
+
+for front in store.storefronts:
+    print(front.name)
+
+    for entry in front.catalog_entries:
+        print(entry.offer_id)
+        print(entry.dev_name)
+        print(entry.offer_type)
+        print(entry.title)
+        print(entry.description)
+        print(entry.refundable)
+
+        for price in entry.prices:
+            print(price.currency_type)
+            print(price.regular_price)
+            print(price.final_price)
+            print(price.sale_expiration)
+            print(price.base_price)
 ```
 
 ### Hopefully more methods to come
