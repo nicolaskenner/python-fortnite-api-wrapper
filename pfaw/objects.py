@@ -11,8 +11,7 @@ class Player(Base):
 
 
 class BattleRoyale:
-    def __init__(self, status, response, mode, platform):
-        self.status = status
+    def __init__(self, response, mode, platform):
         self.score = 0
         self.matches = 0
         self.time = 0
@@ -61,7 +60,7 @@ class BattleRoyale:
 
 
 class Store(Base):
-    def __init__(self, response, status):
+    def __init__(self, response):
         super().__init__(response)
         self.refresh_interval_hrs = self.response.get('refreshIntervalHrs')
         self.daily_purchase_hrs = self.response.get('dailyPurchaseHrs')
@@ -134,93 +133,3 @@ class News:
             self.login = login.get('messages')
         else:
             self.login = None
-
-
-class Profile:
-    def __init__(self, status, response):
-        self.status = status
-        if 'profile_changes' in response:
-            for i in range(0, len(response['profile_changes'])):
-                if response['profile_changes'][i]['changeType'] == 'fullProfileUpdate' and 'profile' in \
-                        response['profile_changes'][i]:
-                    stats = False
-                    for addr in response['profile_changes'][i]['profile']:
-                        value = response['profile_changes'][i][addr]
-                        if addr == 'accountId':
-                            self.accountId = value
-                        elif addr == 'created':
-                            self.created = value
-                        elif addr == 'updated':
-                            self.updated = value
-                        elif addr == 'stats':
-                            stats = True
-                    if stats == True:
-                        if response['profile_changes'][i]['profile']['stats']['templateId'] == 'profile_athena':
-                            for addr in response['profile_changes'][i]['profile']['stats']['attributes']:
-                                value = response['profile_changes'][i]['profile']['stats']['attributes'][addr]
-                                if addr == 'level':
-                                    self.level = value
-                                elif addr == 'accountLevel':
-                                    self.accountLevel = value
-                                elif addr == 'xp':
-                                    self.xp = value
-                                elif addr == 'season_friend_match_boost':
-                                    self.friendXpBoost = value
-                                elif addr == 'lifetime_wins':
-                                    self.lifetimeWins = value
-                                elif addr == 'book_purchased':
-                                    self.battlepass = value
-                                elif addr == 'season_match_boost':
-                                    self.xpBoost = value
-                                elif addr == 'banner_icon':
-                                    self.bannerType = value
-                                elif addr == 'banner_color':
-                                    self.bannerColor = value
-                                elif addr == 'book_level':
-                                    self.battlepassLevel = value
-                                elif addr == 'season_num':
-                                    self.season = value
-                                elif addr == 'book_xp':
-                                    self.battlepassStars = value
-                                elif addr == 'favorite_character':
-                                    self.character = value
-                                elif addr == 'favorite_backpack':
-                                    self.backbling = value
-                                elif addr == 'favorite_skydivecontrail':
-                                    self.trail = value
-                                elif addr == 'favorite_pickaxe':
-                                    self.pickaxe = value
-                                elif addr == 'favorite_glider':
-                                    self.glider = value
-                                elif addr == 'favorite_loadingscreen':
-                                    self.loadingscreen = value
-                                elif addr == 'favorite_dance':
-                                    self.dances = value
-                                elif addr == 'season':
-                                    self.seasonWins = value['numWins']
-                                elif addr == 'past_seasons':
-                                    self.pastSeasons = []
-                                    for i in range(0, len(value)):
-                                        self.pastSeasons.append(PastSeason(value[i]))
-                                elif addr == 'quest_manager':
-                                    self.abandonDailyAmount = value['dailyQuestRerolls']
-
-
-class PastSeason:
-    def __init__(self, season):
-        for addr in season:
-            value = season[addr]
-            if addr == 'seasonNumber':
-                self.number = value
-            elif addr == 'numWins':
-                self.wins = value
-            elif addr == 'seasonXp':
-                self.xp = value
-            elif addr == 'seasonLevel':
-                self.level = value
-            elif addr == 'bookXp':
-                self.battlepassStars = value
-            elif addr == 'bookLevel':
-                self.battlepassLevel = value
-            elif addr == 'purchasedVip':
-                self.battepass = value
