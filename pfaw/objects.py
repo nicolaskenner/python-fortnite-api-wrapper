@@ -34,28 +34,28 @@ class BattleRoyale:
             mode = '_p'
 
         for i in response:
-            if mode and platform in i['name']:
-                if 'score' in i['name']:
+            if mode in i['name'] and platform in i['name']:
+                if 'score_' in i['name']:
                     self.score += i['value']
-                elif 'matchesplayed' in i['name']:
+                elif 'matchesplayed_' in i['name']:
                     self.matches += i['value']
-                elif 'minutesplayed' in i['name']:
+                elif 'minutesplayed_' in i['name']:
                     self.time += i['value']
-                elif 'kills' in i['name']:
+                elif 'kills_' in i['name']:
                     self.kills += i['value']
-                elif 'placetop1' in i['name']:
+                elif 'placetop1_' in i['name']:
                     self.wins += i['value']
-                elif 'placetop3' in i['name']:
+                elif 'placetop3_' in i['name']:
                     self.top3 += i['value']
-                elif 'placetop5' in i['name']:
+                elif 'placetop5_' in i['name']:
                     self.top5 += i['value']
-                elif 'placetop6' in i['name']:
+                elif 'placetop6_' in i['name']:
                     self.top6 += i['value']
-                elif 'placetop10' in i['name']:
+                elif 'placetop10_' in i['name']:
                     self.top10 += i['value']
-                elif 'placetop12' in i['name']:
+                elif 'placetop12_' in i['name']:
                     self.top12 += i['value']
-                elif 'placetop25' in i['name']:
+                elif 'placetop25_' in i['name']:
                     self.top25 += i['value']
 
 
