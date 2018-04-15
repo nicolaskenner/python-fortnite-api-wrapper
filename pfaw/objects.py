@@ -10,8 +10,18 @@ class Player(Base):
         self.id = self.response.get('id')
 
 
-class BattleRoyale:
-    def __init__(self, response, mode, platform):
+class BattleRoyale(Base):
+    def __init__(self, response, platform):
+        super().__init__(response)
+        self.solo = BattleRoyaleStats(response=self.response, platform=platform, mode='_p2')
+        self.duo = BattleRoyaleStats(response=self.response, platform=platform, mode='_p10')
+        self.squad = BattleRoyaleStats(response=self.response, platform=platform, mode='_p9')
+        self.all = BattleRoyaleStats(response=self.response, platform=platform, mode='_p')
+
+
+class BattleRoyaleStats(Base):
+    def __init__(self, response, platform, mode):
+        super().__init__(response)
         self.score = 0
         self.matches = 0
         self.time = 0
@@ -23,40 +33,30 @@ class BattleRoyale:
         self.top10 = 0
         self.top12 = 0
         self.top25 = 0
-
-        if mode == 'solo':
-            mode = '_p2'
-        elif mode == 'duo':
-            mode = '_p10'
-        elif mode == 'squad':
-            mode = '_p9'
-        elif mode == 'all':
-            mode = '_p'
-
-        for i in response:
-            if mode in i['name'] and platform in i['name']:
-                if 'score_' in i['name']:
-                    self.score += i['value']
-                elif 'matchesplayed_' in i['name']:
-                    self.matches += i['value']
-                elif 'minutesplayed_' in i['name']:
-                    self.time += i['value']
-                elif 'kills_' in i['name']:
-                    self.kills += i['value']
-                elif 'placetop1_' in i['name']:
-                    self.wins += i['value']
-                elif 'placetop3_' in i['name']:
-                    self.top3 += i['value']
-                elif 'placetop5_' in i['name']:
-                    self.top5 += i['value']
-                elif 'placetop6_' in i['name']:
-                    self.top6 += i['value']
-                elif 'placetop10_' in i['name']:
-                    self.top10 += i['value']
-                elif 'placetop12_' in i['name']:
-                    self.top12 += i['value']
-                elif 'placetop25_' in i['name']:
-                    self.top25 += i['value']
+        for stat in self.response:
+            if platform in stat.get('name') and mode in stat.get('name'):
+                if 'score_' in stat.get('name'):
+                    self.score += stat.get('value')
+                elif 'matchesplayed_' in stat.get('name'):
+                    self.matches += stat.get('value')
+                elif 'minutesplayed_' in stat.get('name'):
+                    self.time += stat.get('value')
+                elif 'kills_' in stat.get('name'):
+                    self.kills += stat.get('value')
+                elif 'placetop1_' in stat.get('name'):
+                    self.wins += stat.get('value')
+                elif 'placetop3_' in stat.get('name'):
+                    self.top3 += stat.get('value')
+                elif 'placetop5_' in stat.get('name'):
+                    self.top5 += stat.get('value')
+                elif 'placetop6_' in stat.get('name'):
+                    self.top6 += stat.get('value')
+                elif 'placetop10_' in stat.get('name'):
+                    self.top10 += stat.get('value')
+                elif 'placetop12_' in stat.get('name'):
+                    self.top12 += stat.get('value')
+                elif 'placetop25_' in stat.get('name'):
+                    self.top25 += stat.get('value')
 
 
 class Store(Base):
