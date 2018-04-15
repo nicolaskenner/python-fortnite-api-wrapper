@@ -1,5 +1,7 @@
 # The Python Fortnite API Wrapper
-A work in progress.
+
+[![Discord](https://img.shields.io/discord/430802154022895616.svg?logo=discord)](https://discord.gg/AEfWXP9)
+[![PyPI](https://img.shields.io/pypi/v/fortnite.svg)](https://pypi.org/project/fortnite/)
 
 ## Installation
 ```bash
