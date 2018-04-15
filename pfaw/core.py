@@ -28,19 +28,11 @@ class Fortnite:
         response = self.session.get(constants.player.format(username))
         return objects.Player(response)
 
-    def battle_royale_stats(self, username, mode, platform):
-        """Return object containing Battle Royale stats
-
-        mode can be solo, duo, squad, or all.
-        platform can be pc, ps4, or xb1.
-
-        Example: Fortnite.battle_royale_stats('Jimmy', 'solo', 'pc')
-
-        """
-
+    def battle_royale_stats(self, username, platform):
+        """Return object containing Battle Royale stats"""
         player_id = self.player(username).id
         response = self.session.get(constants.battle_royale.format(player_id))
-        return objects.BattleRoyale(response=response, mode=mode.lower(), platform=platform.lower())
+        return objects.BattleRoyale(response=response, platform=platform)
 
     def friends(self, username):
         """Return list of player ids. This method only works for the authenticated account."""
