@@ -11,68 +11,54 @@ pip install fortnite
 ## Usage
 
 ### Setup
+[Obtaining fortnite and launcher tokens](https://github.com/qlaffont/fortnite-api#init)
 ```python
-import pfaw
+from pfaw import Fortnite, Platform
 
-fortnite = pfaw.Fortnite(fortnite_token='FORTNITE_TOKEN', launcher_token='LAUNCHER_TOKEN',
-                         password='PASSWORD', email='EMAIL')
+fortnite = Fortnite(fortnite_token='FORTNITE_TOKEN', launcher_token='LAUNCHER_TOKEN',
+                    password='PASSWORD', email='EMAIL')
 ```
 
 ### Player
 Return an object containing the attributes name and id.
 ```python
-smitty = fortnite.player('Smitty Werbenjagermanjensen')
+player = fortnite.player(username='Smitty Werbenjagermanjensen')
 
-print(smitty.name)
-print(smitty.id)
+print(player.name)
+print(player.id)
 
 # prints:
 # Smitty Werbenjagermanjensen
 # 9c9212603304472d831c03d0978d2bc1
 ```
 
-### Battle Royale Player Stats
+### Battle Royale Stats
 Creates an object containing various stats for a given player.
 ```python
-smitty_solo_pc = fortnite.battle_royale_stats(username='Smitty Werbenjagermanjensen', mode='solo', platform='pc')
+stats = fortnite.battle_royale_stats(username='Smitty Werbenjagermanjensen', platform=Platform.pc)
 
-print(smitty_solo_pc.score)
-print(smitty_solo_pc.matches)
-print(smitty_solo_pc.time)
-print(smitty_solo_pc.kills)
-print(smitty_solo_pc.wins)
-print(smitty_solo_pc.top3)
-print(smitty_solo_pc.top5)
-print(smitty_solo_pc.top6)
-print(smitty_solo_pc.top10)
-print(smitty_solo_pc.top12)
-print(smitty_solo_pc.top25)
+print(f'Solo Wins: {stats.solo.wins}')
+print(f'Duo Wins: {stats.duo.wins}')
+print(f'Squad Wins: {stats.squad.wins}')
+print(f'Lifetime Wins: {stats.all.wins}')
+
 
 # prints:
-# 0
-# 0
-# 0
-# 0
-# 0
-# 0
-# 0
-# 0
-# 0
-# 0
-# 0
-
-# Smitty isn't very good at Fortnite
+# Solo Wins: 1051
+# Duo Wins: 1005
+# Squad Wins: 210
+# Lifetime Wins: 2266
 ```
 
-### Status
+### Server Status
 Check the status of the Fortnite servers. Return True if up or False if down.
 ```python
 status = fortnite.server_status()
 
 if status:
-    print('Good news! The Fortnite servers are online.')
+    print('Servers are UP!')
 else:
-    print('Sad news. The Fortnite servers are down. :(')
+    print('Servers are DOWN.')
 ```
 
 ### Friends
@@ -119,11 +105,6 @@ for front in store.storefronts:
             print(price.sale_expiration)
             print(price.base_price)
 ```
-
-### Hopefully more methods to come
-Feel free to open an issue or submit a pull request if you have any neat ideas.
-
-Join the [Discord](https://discord.gg/AEfWXP9) for help and suggestions.
 
 ## Contributors
 A thank you to those who have helped out with this project.
