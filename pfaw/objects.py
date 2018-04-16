@@ -106,30 +106,40 @@ class Price(Base):
         self.base_price = self.response.get('basePrice')
 
 
-class News:
-    def __init__(self, status, response):
-        self.status = status
-
+class News(Base):
+    def __init__(self, response):
+        super().__init__(response)
         common = response.get('athenamessage').get('overrideablemessage')
         if common.get('message') is not None:
-            self.common = [common.get('message')]
+            self.common = [NewsMessage(common.get('message'))]
         elif common.get('messages') is not None:
-            self.common = common.get('messages')
+            self.common = self.message_list(common)
         else:
             self.common = None
 
         br = response.get('battleroyalenews').get('news')
         if br.get('message') is not None:
-            self.br = [br.get('message')]
+            self.br = [NewsMessage(br.get('message'))]
         elif br.get('messages') is not None:
-            self.br = br.get('messages')
+            self.br = self.message_list(br)
         else:
             self.br = None
 
         login = response.get('loginmessage').get('loginmessage')
         if login.get('message') is not None:
-            self.login = [login.get('message')]
+            self.login = [NewsMessage(login.get('message'))]
         elif login.get('messages') is not None:
-            self.login = login.get('messages')
+            self.login = self.message_list(login)
         else:
             self.login = None
+
+    def message_list(self, messages):
+        return [NewsMessage(response) for response in messages.get('messages')]
+
+
+class NewsMessage(Base):
+    def __init__(self, response):
+        super().__init__(response)
+        self.image = self.response.get('image')
+        self.title = self.response.get('title')
+        self.body = self.response.get('body')
