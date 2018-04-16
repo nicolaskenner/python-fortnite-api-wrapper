@@ -6,7 +6,8 @@ status = 'https://lightswitch-public-service-prod06.ol.epicgames.com/lightswitch
 friends = 'https://friends-public-service-prod06.ol.epicgames.com/friends/api/public/friends/{}'
 store = 'https://fortnite-public-service-prod11.ol.epicgames.com/fortnite/api/storefront/v2/catalog?rvn={}'
 news = 'https://fortnitecontent-website-prod07.ol.epicgames.com/content/api/pages/fortnite-game'
-
+patch_notes = 'https://www.epicgames.com/fortnite/api/blog/getPosts'
+blog = 'https://www.epicgames.com/fortnite/{}/news/{}'
 
 class Platform:
     pc = 'pc'
