@@ -1,3 +1,5 @@
+from . import constants, utils
+
 class Base:
     def __init__(self, response):
         self.response = response
@@ -172,6 +174,8 @@ class Blog:
         self.html_short = data.get('short')
         self.featured = data.get('featured')
         self.date = data.get('date')
+        if self.date is not None:
+            self.date = utils.convertIsoTime(self.date)
         self.id = data.get('_id')
         self.slug = data.get('slug')
         self.locale = data.get('locale')
