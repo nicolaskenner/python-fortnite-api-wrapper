@@ -175,7 +175,7 @@ class Blog:
         self.featured = data.get('featured')
         self.date = data.get('date')
         if self.date is not None:
-            self.date = utils.convertIsoTime(self.date)
+            self.date = utils.convert_iso_time(self.date)
         self.id = data.get('_id')
         self.slug = data.get('slug')
         self.locale = data.get('locale')
