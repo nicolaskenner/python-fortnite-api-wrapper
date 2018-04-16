@@ -49,7 +49,7 @@ class Fortnite:
     def news():
         """Get the current news on fortnite."""
         response = requests.get(constants.news, headers={'Accept-Language': 'en'})
-        return objects.News(status=response.status_code, response=response.json())
+        return objects.News(response=response.json())
 
     @staticmethod
     def server_status():
