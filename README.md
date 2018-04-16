@@ -76,7 +76,9 @@ Return an object containing the attributes common, br, and login.
 news = fortnite.news()
 
 for br_news in news.br:
-    print(br_news)
+    print(br_news.image)
+    print(br_news.title)
+    print(br_news.body)
 ```
 
 ### Store
