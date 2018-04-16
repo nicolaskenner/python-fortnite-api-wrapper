@@ -1,3 +1,5 @@
+from . import constants, utils
+
 class Base:
     def __init__(self, response):
         self.response = response
@@ -109,6 +111,7 @@ class Price(Base):
 class News(Base):
     def __init__(self, response):
         super().__init__(response)
+        
         common = response.get('athenamessage').get('overrideablemessage')
         if common.get('message') is not None:
             self.common = [NewsMessage(common.get('message'))]
@@ -132,14 +135,66 @@ class News(Base):
             self.login = self.message_list(login)
         else:
             self.login = None
-
+    
     def message_list(self, messages):
         return [NewsMessage(response) for response in messages.get('messages')]
 
-
+            
 class NewsMessage(Base):
     def __init__(self, response):
         super().__init__(response)
         self.image = self.response.get('image')
         self.title = self.response.get('title')
         self.body = self.response.get('body')
+
+        
+class PatchNotes(Base):
+    def __init__(self, status, response):
+        super().__init__(response)
+        self.status = status
+
+        self.post_count = response.get('postCount')
+        self.increment_count = response.get('incrementCount')
+        self.total_blogs = response.get('blogTotal')
+        self.totals = CategoryTotals(response.get('categoryTotals'))
+        self.blogs = []
+        blogs_raw = response.get('blog_List')
+        if blogs_raw is not None:
+            for blog in blogs_raw:
+                self.blogs.append(Blog(blog))
+
+                
+class CategoryTotals:
+    def __init__(self,data):
+        self.community = data.get('community')
+        self.events = data.get('events')
+        self.patch_notes = data.get('patch_notes')
+        self.announcements = data.get('announcements')
+        self.all = data.get('all')
+
+        
+class Blog:
+    def __init__(self,data):
+        self.trending = data.get('trending')
+        self.no_top_image = data.get('noTopImage')
+        self.image = data.get('image')
+        self.author = data.get('author')
+        self.share_image = data.get('shareImage')
+        self.title = data.get('title')
+        self.html_content = data.get('content')
+        self.trending_image = data.get('trendingImage')
+        self.category = data.get('cat')
+        self.html_short = data.get('short')
+        self.featured = data.get('featured')
+        self.date = data.get('date')
+        if self.date is not None:
+            self.date = utils.convert_iso_time(self.date)
+        self.id = data.get('_id')
+        self.slug = data.get('slug')
+        self.locale = data.get('locale')
+        self.categories = data.get('category')
+        self.tags = data.get('tags')
+        if self.slug is not None and self.locale is not None:
+            self.url = constants.blog.format(self.locale,self.slug)
+        else:
+            self.url = None
