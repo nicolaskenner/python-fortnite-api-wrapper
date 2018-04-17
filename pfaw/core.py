@@ -61,11 +61,12 @@ class Fortnite:
             return False
 
     @staticmethod
-    def patch_notes(posts_per_page=5,offset=0,locale='en-US',category='patch notes'):
+    def patch_notes(posts_per_page=5, offset=0, locale='en-US', category='patch notes'):
         """Get a list of recent patch notes for fortnite. Can return other blogs from epicgames.com"""
-        params = {'category':category,'postsPerPage':posts_per_page,'offset':offset,'locale':locale}
-        response = requests.get(constants.patch_notes,params=params)
+        params = {'category': category, 'postsPerPage': posts_per_page, 'offset': offset, 'locale': locale}
+        response = requests.get(constants.patch_notes, params=params)
         return objects.PatchNotes(status=response.status_code, response=response.json())
+
 
 class Session:
     def __init__(self, access_token):
