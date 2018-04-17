@@ -11,7 +11,7 @@ pip install fortnite
 ## Usage
 
 ### Setup
-[Obtaining fortnite and launcher tokens](https://github.com/qlaffont/fortnite-api#init)
+[Obtaining fortnite and launcher tokens](https://gist.github.com/Douile/67daa69b59255bcdc390025053dbe295)
 ```python
 from pfaw import Fortnite, Platform
 
