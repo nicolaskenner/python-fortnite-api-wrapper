@@ -5,7 +5,7 @@ import requests
 
 class Fortnite:
     def __init__(self, fortnite_token, launcher_token, password, email):
-        password_response = requests.post(constants.token, headers={'Authorization': f'basic {launcher_token}'},
+        password_response = requests.post(constants.token, headers={'Authorization': 'basic {}'.format(launcher_token)},
                                           data={'grant_type': 'password', 'username': '{}'.format(email),
                                                 'password': '{}'.format(password), 'includePerms': True}).json()
         access_token = password_response.get('access_token')
@@ -71,7 +71,7 @@ class Fortnite:
 class Session:
     def __init__(self, access_token):
         self.session = requests.Session()
-        self.session.headers.update({'Authorization': f'bearer {access_token}'})
+        self.session.headers.update({'Authorization': 'bearer {}'.format(access_token)})
 
     def get(self, endpoint):
         response = self.session.get(endpoint)
