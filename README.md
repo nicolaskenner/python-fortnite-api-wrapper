@@ -13,7 +13,7 @@ pip install fortnite
 ### Setup
 [Obtaining fortnite and launcher tokens](https://gist.github.com/Douile/67daa69b59255bcdc390025053dbe295)
 ```python
-from pfaw import Fortnite, Platform
+from pfaw import Fortnite, Platform, Mode
 
 fortnite = Fortnite(fortnite_token='FORTNITE_TOKEN', launcher_token='LAUNCHER_TOKEN',
                     password='PASSWORD', email='EMAIL')
@@ -106,6 +106,26 @@ for front in store.storefronts:
             print(price.final_price)
             print(price.sale_expiration)
             print(price.base_price)
+```
+
+### Leaderboard
+```Python
+leaderboard = fortnite.leaderboard(count=10, platform=Platform.pc, mode=Mode.solo)
+
+for player in leaderboard:
+    print(f'{player.id} - {player.name} - {player.rank} - {player.value}')
+
+# prints:
+# 385c4d9ab7e3498db533ff4d2d9f4c5b - twitch_bogdanakh - 1 - 909
+# 155234bbadaa4e8199a7b2d413722290 - TwitchTV.lavak3_ - 2 - 805
+# c083d2200d654b25a87c0c48cb76c902 - Agares29_Twitch - 3 - 781
+# 0041d08bedc548d9a2230c4a28550594 - Myboosting.com2 - 4 - 736
+# 6f5c77adef1c4e47bc33f1f0c8b4b263 - Twitch_DutchHawk - 5 - 728
+# e94c3e05284443398803285171550b45 - twitchtvLIKANDOO - 6 - 675
+# 13b3c77420da4101a213e1f646b316a9 - Twitch APEXENITH - 7 - 675
+# b94176db4c254f9099fb2bd8e8ae0f94 - VaxitylolMIXERtv - 8 - 624
+# cfd16ec54126497ca57485c1ee1987dc - SypherPK - 9 - 608
+# a9467569462d4149bc438550c03a45c9 - RuralKTmixer.com - 10 - 607
 ```
 
 ## Contributors

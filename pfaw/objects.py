@@ -198,3 +198,12 @@ class Blog:
             self.url = constants.blog.format(self.locale, self.slug)
         else:
             self.url = None
+
+
+class Leaderboard(Base):
+    def __init__(self, response):
+        super().__init__(response)
+        self.id = response.get('id')
+        self.name = response.get('name')
+        self.rank = response.get('rank')
+        self.value = response.get('value')

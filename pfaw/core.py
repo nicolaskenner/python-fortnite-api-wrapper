@@ -45,6 +45,24 @@ class Fortnite:
         response = self.session.get(constants.store.format(rw))
         return objects.Store(response)
 
+    def leaderboard(self, count=50, platform=constants.Platform.pc, mode=constants.Mode.solo):
+        """Return list of leaderboard objects. Object attributes include id, name, rank, and value."""
+        params = {'ownertype': '1', 'itemsPerPage': count}
+        leaderboard_response = self.session.post(endpoint=constants.leaderboard.format(platform, mode), params=params)
+        for entry in leaderboard_response.get('entries'):
+            for key, value in entry.items():
+                if key == 'accountId':
+                    entry[key] = value.replace('-', '')
+        account_ids = '&accountId='.join([entry.get('accountId') for entry in leaderboard_response.get('entries')])
+        account_response = self.session.get(endpoint=constants.account.format(account_ids))
+        players = []
+        for player in leaderboard_response.get('entries'):
+            for account in account_response:
+                if player.get('accountId') == account.get('id'):
+                    players.append({'id': player.get('accountId'), 'name': account.get('displayName'),
+                                    'value': player.get('value'), 'rank': player.get('rank')})
+        return [objects.Leaderboard(player) for player in players]
+
     @staticmethod
     def news():
         """Get the current news on fortnite."""
@@ -73,8 +91,20 @@ class Session:
         self.session = requests.Session()
         self.session.headers.update({'Authorization': 'bearer {}'.format(access_token)})
 
-    def get(self, endpoint):
-        response = self.session.get(endpoint)
+    def get(self, endpoint, params=None):
+        if params:
+            response = self.session.get(endpoint, params=params)
+        else:
+            response = self.session.get(endpoint)
+        if response.status_code != 200:
+            response.raise_for_status()
+        return response.json()
+
+    def post(self, endpoint, params=None):
+        if params:
+            response = self.session.post(endpoint, params=params)
+        else:
+            response = self.session.post(endpoint)
         if response.status_code != 200:
             response.raise_for_status()
         return response.json()

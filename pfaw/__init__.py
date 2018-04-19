@@ -1,2 +1,2 @@
 from .core import Fortnite
-from .constants import Platform
+from .constants import Platform, Mode
