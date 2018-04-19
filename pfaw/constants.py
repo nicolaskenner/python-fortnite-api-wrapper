@@ -8,8 +8,17 @@ store = 'https://fortnite-public-service-prod11.ol.epicgames.com/fortnite/api/st
 news = 'https://fortnitecontent-website-prod07.ol.epicgames.com/content/api/pages/fortnite-game'
 patch_notes = 'https://www.epicgames.com/fortnite/api/blog/getPosts'
 blog = 'https://www.epicgames.com/fortnite/{}/news/{}'
+leaderboard = 'https://fortnite-public-service-prod11.ol.epicgames.com/fortnite/api/leaderboards/type/global/stat/br_placetop1_{}_m0{}/window/weekly'
+account = 'https://account-public-service-prod03.ol.epicgames.com/account/api/public/account?accountId={}'
+
 
 class Platform:
     pc = 'pc'
     ps4 = 'ps4'
     xb1 = 'xb1'
+
+
+class Mode:
+    solo = '_p2'
+    duo = '_p10'
+    squad = '_p9'
