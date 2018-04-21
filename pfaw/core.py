@@ -66,14 +66,14 @@ class Fortnite:
     @staticmethod
     def news():
         """Get the current news on fortnite."""
-        response = requests.get(constants.news, headers={'Accept-Language': 'en'})
-        return objects.News(response=response.json())
+        response = Session.get_noauth(endpoint=constants.news, headers={'Accept-Language': 'en'})
+        return objects.News(response=response)
 
     @staticmethod
     def server_status():
         """Check the status of the Fortnite servers. Returns True if up and False if down."""
-        response = requests.get(constants.status)
-        if response.json()[0]['status'] == 'UP':
+        response = Session.get_noauth(endpoint=constants.status)
+        if response[0]['status'] == 'UP':
             return True
         else:
             return False
@@ -82,8 +82,8 @@ class Fortnite:
     def patch_notes(posts_per_page=5, offset=0, locale='en-US', category='patch notes'):
         """Get a list of recent patch notes for fortnite. Can return other blogs from epicgames.com"""
         params = {'category': category, 'postsPerPage': posts_per_page, 'offset': offset, 'locale': locale}
-        response = requests.get(constants.patch_notes, params=params)
-        return objects.PatchNotes(status=response.status_code, response=response.json())
+        response = Session.get_noauth(endpoint=constants.patch_notes, params=params)
+        return objects.PatchNotes(status=response.status_code, response=response)
 
 
 class Session:
@@ -105,6 +105,20 @@ class Session:
             response = self.session.post(endpoint, params=params)
         else:
             response = self.session.post(endpoint)
+        if response.status_code != 200:
+            response.raise_for_status()
+        return response.json()
+
+    @staticmethod
+    def get_noauth(endpoint, params=None, headers=None):
+        response = requests.get(endpoint, params=params, headers=headers)
+        if response.status_code != 200:
+            response.raise_for_status()
+        return response.json()
+
+    @staticmethod
+    def post_noauth(endpoint, params=None, headers=None):
+        response = requests.post(endpoint, params=params, headers=headers)
         if response.status_code != 200:
             response.raise_for_status()
         return response.json()
