@@ -11,7 +11,8 @@ pip install fortnite
 ## Usage
 
 ### Setup
-[Obtaining fortnite and launcher tokens](https://gist.github.com/Douile/67daa69b59255bcdc390025053dbe295)
+[Obtaining fortnite and launcher tokens](https://gist.github.com/Douile/67daa69b59255bcdc390025053dbe295)  
+Looking for an asynchronous client? Check out [JakeMakesStuff/aiofortnite](https://github.com/JakeMakesStuff/aiofortnite)
 ```python
 from pfaw import Fortnite, Platform, Mode
 
