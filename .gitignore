@@ -99,3 +99,6 @@ ENV/
 
 # mypy
 .mypy_cache/
+
+#ds store
+.DS_Store
